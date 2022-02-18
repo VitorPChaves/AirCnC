@@ -1,4 +1,5 @@
-# omnistack-week
+# AirCnC
 
-This project is based on the Airbnb app.
-But for developer companies to book spots for other developers to code. 
+- Coffee & Code
+- This project is based on Airbnb's app
+- But instead of house bookings, the app provides offices for companies and developers to code.
