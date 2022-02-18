@@ -4,37 +4,15 @@ import api from '../services/api';
 //import { withNavigation } from 'react-navigation';
 import { useNavigation } from '@react-navigation/native';
 import { socketio } from 'socket.io-client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function SpotListCompany({spot}) {
+export default function SpotListCompany() {
     const [spots, setSpots] = useState([]);
-    const navigation = useNavigation();
-    //const navigation = this.props.navigation;
-    //executa uma ação assim que o componente é exposto na tela
-    useEffect(() => {
-        async function loadSpots() {
-            const response = await api.get('/spots', {
-                params: {tech}
-            })
-
-            //console.log(response.data);
-            setSpots(response.data);
-        }
-
-        loadSpots();
-
-        // const socket = socketio('http://localhost:3333', {
-        //     query: {user_id}
-        // });
-        // socket.once('booking_request', data => {
-        //     console.log(data);
-        // });
-    }, []);
-
-    
+    //const navigation = useNavigation();
+    //const navigation = this.props.navigation;    
 
     return (
         <View style={styles.container}>
-            <Text style ={styles.title}>Your spots</Text>
             <FlatList
                 style={styles.list}
                 data={spots}
@@ -45,6 +23,7 @@ export default function SpotListCompany({spot}) {
                 renderItem={({ item }) => (
                     <View style={styles.itemList}>
                         <Image style={styles.thumbnail} source={{uri:item.thumbnail_url}} />
+                        <Text>Hello</Text>
                         <Text style={styles.price}>{item.price ? `$${item.price}/day` : 'Free Spot'}</Text>
                     </View>
                 )}
@@ -56,13 +35,6 @@ export default function SpotListCompany({spot}) {
 const styles = StyleSheet.create({
     container: {
         marginTop: 30,
-    },
-
-    title: {
-        fontSize: 20,
-        color: '#444',
-        paddingHorizontal: 20,
-        marginBottom: 15,
     },
 
     bold : {
@@ -78,8 +50,8 @@ const styles = StyleSheet.create({
     },
 
     thumbnail: {
-        height: 120,
         width: 200,
+        height: 120,
         resizeMode: 'cover',
         borderRadius: 2,
     },

@@ -6,67 +6,49 @@ import { SafeAreaView, View, StyleSheet, Image, TouchableOpacity, ScrollView, Te
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import logo from '../assets/logo.png';
 import { useNavigation } from '@react-navigation/native';
+import SpotListCompany from '../components/SpotListCompany';
 
-export default function Dashboard() {
-  const [spots, setSpots] = useState([]);
-  const [requests, setRequests] = useState([]);
-  const navigation = useNavigation();
-  const user_id = AsyncStorage.getItem('user');
-  
-//   const socket = useMemo(() => socketio('http://localhost:3333', {
-//     query: { user_id },
-//   }), [user_id]);
-  
-//   useEffect(() => {
-//     socket.on('booking_request', data => {
-//       setRequests([...requests, data]);
-//     })
-//   }, [requests, socket]);
+export default function CompanyDashboard() {
+    const [spots, setSpots] = useState([]);
+    const [requests, setRequests] = useState([]);
+    const navigation = useNavigation();
+    //const user_id = AsyncStorage.getItem('user');
 
+    //executa a ação assim que o componente é exposto na tela
+    useEffect(() => {
+        async function loadSpots() {
+            const user_id = AsyncStorage.getItem('user');
+            const response = await api.get('/dashboard', {
+                params: {user_id}
+            });
 
-  useEffect(() => {
-    async function loadSpots() {
-        const user_id = await AsyncStorage.getItem('user');
-        const response = await api.get('/dashboard', {
-            headers: { user_id }
-        });
+            //console.log(response.data);
+            setSpots(response.data);
+            //console.log(spots);
+        }
+        loadSpots();
+    }, []);
 
-      setSpots(response.data);
+    async function handleNewSpot() {
+        navigation.navigate('NewSpot');
     }
-
-    loadSpots();
-  }, []);
-
-//   async function handleAccept(id) {
-//     await api.post(`/bookings/${id}/approvals`);
-
-//     setRequests(requests.filter(request => request._id !== id));
-//   }
-
-//   async function handleReject(id) {
-//     await api.post(`/bookings/${id}/rejections`);
-
-//     setRequests(requests.filter(request => request._id !== id));
-//   }
-
-  async function handleNewSpot() {
-    navigation.navigate('NewSpot');
-  }
-
-//   async function handleNavigate(id) {
-//     navigation.navigate('Book', {id});
-// }
 
     return (
         <SafeAreaView style={styles.container}>
             <Image style={styles.logoStyle} source={logo}/>
+            <Text style ={styles.title}>Your spots</Text>
+            <Text>Hello</Text>
 
             {/* //percorre o array de techs e lista
             //"key" identifica os spots no map */}
             <ScrollView>
+                {/*{spots.map(spot => <SpotListCompany key={spot._id} spot={spot}/>)}*/}
                 {spots.map(spot => (
-                    <SpotListCompany key={spot} spot={spot}/>
-                ))}
+                    <View style={styles.itemList}>
+                        <Image style={styles.thumbnail} source={{uri:spot.thumbnail_url}} />
+                        <Text>Hello</Text>
+                        <Text style={styles.price}>{spot.price ? `$${spot.price}/day` : 'Free Spot'}</Text>
+                    </View>))}
             </ScrollView>
             <View style={styles.form}>
                 <TouchableOpacity onPress={handleNewSpot} style={styles.button}>
@@ -90,6 +72,14 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
 
+    title: {
+        fontSize: 20,
+        color: '#444',
+        paddingHorizontal: 20,
+        marginBottom: 15,
+        marginTop: 30,
+    },
+    
     form: {
         alignSelf: 'stretch',
         paddingHorizontal: 30,

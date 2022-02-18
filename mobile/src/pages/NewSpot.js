@@ -26,9 +26,7 @@ export default function Book() {
     //     return thumbnail ? URL.createObjectURL(thumbnail) : null;
     // }, [thumbnail]);
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-
+    async function handleSubmit() {
         const user_id = await AsyncStorage.getItem('user');
         const data = new FormData();
 
@@ -40,7 +38,7 @@ export default function Book() {
 
         data.append('thumbnail', {
             uri: thumbnail.uri,
-            type: thumbnail.type
+            //type: thumbnail.type
         });
         //data.append('thumbnail', thumbnail)
         //data.append('thumbnail', thumbName);
@@ -50,7 +48,7 @@ export default function Book() {
 
         //console.log(thumbName);
         console.log(thumbnail);
-        navigation.navigate('Dashboard');
+        navigation.navigate('CompanyDashboard');
 
 
         await api.post('/spots', data, {
@@ -105,7 +103,7 @@ export default function Book() {
     
 
     function handleCancel() {
-        navigation.navigate('Dashboard');
+        navigation.navigate('CompanyHome');
     }
 
     return (

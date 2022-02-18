@@ -12,22 +12,19 @@ export default function Login() {
     useEffect(() => {
         AsyncStorage.getItem('user').then(user => {
             if (user) {
-               navigation.navigate('Dashboard');
+               navigation.navigate('CompanyDashboard');
                //navi;
             }
         })
     }, []);
 
-    async function handleSubmit(event){
-        event.preventDefault();
-
+    async function handleSubmit(){
         const response = await api.post('/sessions', {email})
         const { _id } = response.data;
 
         await AsyncStorage.setItem('user', _id);
 
-        navigation.navigate('Dashboard');
-
+        navigation.navigate('CompanyDashboard');
         console.log(_id);
     }
 

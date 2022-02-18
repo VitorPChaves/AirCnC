@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { SafeAreaView, StyleSheet, Image, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import logo from '../assets/logo.png';
-import SpotList from '../components/SpotList';
+import SpotListUser from '../components/SpotListUser';
 
-export default function List() {
+export default function UserDashboard() {
     //seta as techs em um array
     const [techs, setTechs] = useState([]);
 
@@ -21,10 +21,10 @@ export default function List() {
         <SafeAreaView style={styles.container}>
             <Image style={styles.logoStyle} source={logo}/>
 
-            {/* //percorre o array de techs e lista
+            {/* //percorre o array de techs e lista as tecnologias selecionadas pelo usuario
             //"key" identifica as techs no map */}
             <ScrollView>
-                {techs.map(techno => <SpotList key={techno} tech={techno}/>)}
+                {techs.map(techno => <SpotListUser key={techno} tech={techno}/>)}
             </ScrollView>
         </SafeAreaView>
     )

@@ -15,7 +15,7 @@ export default function Login() {
     useEffect(() => {
         AsyncStorage.getItem('user').then(user => {
             if (user) {
-               navigation.navigate('List');
+               navigation.navigate('UserDashboard');
                //navi;
             }
         })
@@ -29,7 +29,7 @@ export default function Login() {
         await AsyncStorage.setItem('user', _id);
         await AsyncStorage.setItem('techs', techs);
 
-        navigation.navigate('List');
+        navigation.navigate('UserDashboard');
 
 
         console.log(_id);

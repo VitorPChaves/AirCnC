@@ -9,6 +9,7 @@ export default function SpotList({tech}) {
     const [spots, setSpots] = useState([]);
     const navigation = useNavigation();
     //const navigation = this.props.navigation;
+    
     //executa uma ação assim que o componente é exposto na tela
     useEffect(() => {
         async function loadSpots() {
@@ -21,13 +22,6 @@ export default function SpotList({tech}) {
         }
 
         loadSpots();
-
-        // const socket = socketio('http://localhost:3333', {
-        //     query: {user_id}
-        // });
-        // socket.once('booking_request', data => {
-        //     console.log(data);
-        // });
     }, []);
 
     async function handleNavigate(id) {
@@ -46,7 +40,7 @@ export default function SpotList({tech}) {
                 //renders the list of spots
                 renderItem={({ item }) => (
                     <View style={styles.itemList}>
-                        <Image style={styles.thumbnail} source={{uri:item.thumbnail_urll}} />
+                        <Image style={styles.thumbnail} source={{uri:item.thumbnail_url}} />
                         <Text style={styles.company}>{item.company}</Text>
                         <Text style={styles.price}>{item.price ? `$${item.price}/day` : 'Free Spot'}</Text>
                         <TouchableOpacity onPress={() => {
@@ -87,8 +81,8 @@ const styles = StyleSheet.create({
     },
 
     thumbnail: {
-        height: 120,
         width: 200,
+        height: 120,
         resizeMode: 'cover',
         borderRadius: 2,
     },
