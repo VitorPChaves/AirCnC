@@ -5,11 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
+import Splash from './pages/Splash';
 import CheckIn from './pages/CheckIn';
 import LoginUser from './pages/LoginUser';
 import LoginCompany from './pages/LoginCompany';
-import List from './pages/List';
-import Dashboard from './pages/Dashboard';
+import UserDashboard from './pages/UserDashboard';
+import CompanyDashboard from './pages/CompanyDashboard';
 import Book from './pages/Book';
 import NewSpot from './pages/NewSpot';
 
@@ -18,11 +19,12 @@ export default function Routes() {
     <NavigationContainer>
 
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="CheckIn" component={CheckIn} />
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="CheckIn" component={CheckIn} options={{gestureEnabled:false}}/>
         <Stack.Screen name="LoginUser" component={LoginUser} />
         <Stack.Screen name="LoginCompany" component={LoginCompany} />
-        <Stack.Screen name="List" component={List} />
-        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="UserDashboard" component= {UserDashboard} />
+        <Stack.Screen name="CompanyDashboard" component={CompanyDashboard} />
         <Stack.Screen name="Book" component={Book} />
         <Stack.Screen name="NewSpot" component={NewSpot} />
       </Stack.Navigator>

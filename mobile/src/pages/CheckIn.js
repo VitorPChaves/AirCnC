@@ -1,25 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import logo from '../assets/logo2x.png';
 import api from '../services/api';
-import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, BackHandler } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 export default function CheckIn() {
     const navigation = useNavigation();
-    // const [email, setEmail] = useState('');
-    // const [techs, setTechs] = useState('');
 
-
-    //executa uma função e um array de dependencias, se o array estiver vazio, executa a função apenas uma vez
-    // useEffect(() => {
-    //     AsyncStorage.getItem('user').then(user => {
-    //         if (user) {
-    //            navigation.navigate('List');
-    //            //navi;
-    //         }
-    //     })
-    // }, []);
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            return true
+        })
+    }, [])
 
 
     async function handleUser() {
